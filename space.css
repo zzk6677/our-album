@@ -1,0 +1,76 @@
+.bar { color: #24333b; background: #f2f6f7; width: 100%; padding-inline: var(--margin); }
+.bar .wordmark svg { color: #315765; }
+.bar .bar-action { color: #f0f6f7; background: #253c48; }
+.bar .bar-action:hover { background: #3d5967; }
+.space-cover {
+  --space-ink: #24333b;
+  --space-muted: #617782;
+  position: relative; color-scheme: light; background: #f2f6f7; color: var(--space-ink);
+  min-height: calc(100svh - 85px); display: flex; flex-direction: column;
+  overflow: clip; isolation: isolate;
+}
+.space-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; padding-block: 10px 15px; }
+.space-heading h1 { font-size: clamp(26px, 3.05vw, 45px); line-height: 1.25; margin: 0; letter-spacing: -.055em; }
+.space-heading p { font-size: 14px; color: var(--space-muted); margin-top: 5px; }
+.space-total { font-size: 13px; color: var(--space-muted); white-space: nowrap; padding-bottom: 4px; }
+.memory-space {
+  position: relative; height: clamp(380px, calc(100svh - 292px), 900px);
+  flex: 1; min-height: 380px; overflow: hidden; outline-offset: -4px;
+  touch-action: pan-y; cursor: grab;
+  user-select: none; -webkit-user-select: none;
+}
+.memory-space:active { cursor: grabbing; }
+.space-zoom, .space-projection { position: absolute; inset: 0; pointer-events: none; }
+.space-projection { perspective: 1000px; perspective-origin: 50% 50%; }
+.space-camera, .space-world { position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; }
+.space-camera { transform: translateZ(-120px); }
+.space-photo {
+  position: absolute; left: 50%; top: 50%; width: 150px; height: 115px;
+  display: block; padding: 3px; background: #fff; pointer-events: auto;
+  backface-visibility: hidden; border-radius: 2px; transform-style: flat;
+  transition: transform 850ms cubic-bezier(.22,1,.36,1), opacity 400ms ease;
+  cursor: pointer; -webkit-user-drag: none;
+}
+.space-photo img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; -webkit-user-drag: none; }
+.space-photo:hover { outline: 2px solid #507986; outline-offset: 2px; }
+.space-photo.is-distant { pointer-events: none; }
+.memory-space[data-space-mode="tunnel"] .space-photo,
+.memory-space.is-dragging .space-photo,
+.memory-space.is-switching .space-photo { transition: none; }
+.space-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 8px; }
+.space-modes, .space-actions { display: flex; align-items: center; gap: 5px; }
+.space-toolbar button {
+  border: 0; border-radius: 2px; min-height: 42px; padding: 9px 14px; font-size: 14px;
+  background: #e2e9ec; color: var(--space-ink); white-space: nowrap;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+.space-toolbar button:hover { background: #d2dfe4; }
+.space-modes button[aria-pressed="true"] { background: #253c48; color: #f0f6f7; }
+.space-toolbar .space-prev, .space-toolbar .space-next { width: 42px; padding-inline: 4px; font-size: 19px; }
+.space-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 12px 18px; color: var(--space-muted); font-size: 13px; }
+.space-foot a { display: inline-flex; align-items: center; gap: 7px; min-height: 32px; }
+.space-foot a:hover { color: var(--space-ink); }
+.space-foot svg { width: 16px; height: 16px; }
+.space-fallback { text-align: center; padding-top: 90px; }
+@media (max-width: 840px) {
+  .space-cover { min-height: calc(100svh - 70px); }
+  .space-toolbar { flex-wrap: wrap; }
+}
+@media (max-width: 630px) {
+  .space-cover { min-height: calc(100svh - 70px); }
+  .space-heading { padding-top: 9px; align-items: start; }
+  .space-heading h1 { font-size: 28px; }
+  .space-heading p { font-size: 13px; }
+  .space-total { display: none; }
+  .memory-space { height: max(340px, calc(100svh - 342px)); min-height: 340px; }
+  .space-toolbar { align-items: center; justify-content: center; gap: 9px; padding-top: 12px; }
+  .space-modes { width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .space-modes button { font-size: 13px; padding-inline: 3px; }
+  .space-actions { gap: 8px; }
+  .space-actions .space-play { min-width: 108px; }
+  .space-foot { flex-wrap: wrap; justify-content: center; gap: 1px; padding-block: 9px 15px; }
+  .space-foot p { width: 100%; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .space-photo { transition: none; }
+}
